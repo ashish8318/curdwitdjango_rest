@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.16/dist/js/uikit-icons.min.js"></script>
+</head>
+
+<body>  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,128L60,138.7C120,149,240,171,360,154.7C480,139,600,85,720,69.3C840,53,960,75,1080,80C1200,85,1320,75,1380,69.3L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+    <div class="uk-position-center">
+        <div class="uk-alert-primary" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{message}}.</p>
+            {% endfor %}
+            {% else %}
+            <p id="info">Welcome to Django rest_framwork.</p>
+            {% endif %}
+        </div
+    <div class="uk-card uk-card-default uk-card-body">
+    <form class="uk-form-stacked uk-text-center" action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+    <div class="uk-margin ">
+        <label class="uk-form-label" for="form-stacked-text">Username</label>
+        <div class="uk-form-controls">
+            <input class="uk-input uk-form-width-medium" name="username" type="text" placeholder="Username" required>
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <label class="uk-form-label center" for="form-stacked-text">Password</label>
+        <div class="uk-form-controls">
+            <input class="uk-input uk-form-width-medium" name="password" type="password" placeholder="password" required>
+        </div>
+    </div>
+     <div class="uk-margin">
+        <button class="uk-button uk-button-primary">Submit</button>
+    </div>
+     <div class="uk-margin">
+     <p>Register for new Account <a href="{% url 'register' %}">Register</a></p>
+     </div
+</form></div>
+</div>
+<div class="uk-position-bottom">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,192L48,192C96,192,192,192,288,208C384,224,480,256,576,256C672,256,768,224,864,192C960,160,1056,128,1152,128C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+</div>
+</body>
+
+</html>

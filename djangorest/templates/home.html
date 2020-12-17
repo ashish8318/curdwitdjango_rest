@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CURD with django_rest</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- UIkit CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.9/dist/css/uikit.min.css" />
+
+<!-- UIkit JS -->
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.9/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.9/dist/js/uikit-icons.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+        
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active"><a href="#">CURD With Django rest_framwork</a></li>
+                </ul>
+        
+            </div>
+            <div class="uk-navbar-right">
+        
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <a class="uk-active" href="#">{{username}}</a>
+                    </li>
+                    {% if username %}
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="uk-alert-primary" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p>{{message}}.</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+        <div class="uk-child-width-1-2@m uk-grid-small uk-grid-match" uk-grid>
+            <div>
+                <div class="uk-card uk-card-default uk-card-body">
+                    <h3 class="uk-card-title">User form</h3>
+                    {% if userdata %}
+                    <form action="{% url 'update' %}" method="POST"> 
+                        <fieldset class="uk-fieldset">
+                           {% csrf_token %}
+                            <legend class="uk-legend">User Name</legend>
+                            <input class="uk-input" type="hidden" name="id" value="{{userdata.id}}">
+                            <div class="uk-margin">
+                                <input class="uk-input" type="text" placeholder="Input" name="username" value="{{userdata.username}}">
+                            </div>
+        
+                            <legend class="uk-legend">Email</legend>
+                            <div class="uk-margin">
+                                <input class="uk-input" type="Email" placeholder="Input" name="email" value="{{userdata.email}}">
+                            </div>
+                            <div class="uk-margin">
+                                <button class="uk-button uk-button-primary" type="submit" tabindex="-1" >Update</button>
+                            </div>
+                    
+                        </fieldset>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'register' %}" method="POST"> 
+                        <fieldset class="uk-fieldset">
+                           {% csrf_token %}
+                            <legend class="uk-legend">User Name</legend>
+                            <input class="uk-input" type="hidden" placeholder="Input">
+                            <div class="uk-margin">
+                                <input class="uk-input" type="text" placeholder="Input" name="username">
+                            </div>
+        
+                            <legend class="uk-legend">Email</legend>
+                            <div class="uk-margin">
+                                <input class="uk-input" type="Email" placeholder="Input" name="email">
+                            </div>
+                            <legend class="uk-legend">Password</legend>
+                            <div class="uk-margin">
+                                <input class="uk-input" type="password" name="password">
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <button class="uk-button uk-button-primary" type="submit" tabindex="-1" >Save</button>
+                            </div>
+                    
+                        </fieldset>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">User Data</h3>
+                    <table class="uk-table uk-table-divider">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                           {% for item in alluser %}
+                            <tr>
+                                <td>{{item.username}}</td>
+                                <td>{{item.email}}</td>
+                                <td><a href="/simple/getdetails/{{item.id}}" class="uk-button uk-button-default uk-button-small editdata" type="uk-button" >Edit</a></td>
+                                <td><a href="/simple/delete/{{item.id}}"  class="uk-button uk-button-danger uk-button-small del"  type="uk-button">Delete</a></td>
+                            </tr> 
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+        </div>
+    </body>
+    
+</html>
